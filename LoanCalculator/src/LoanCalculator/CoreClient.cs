@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Castle.Windsor;
 using LoanCalculator.Core.Installer;
@@ -18,6 +15,7 @@ namespace LoanCalculator.Cli
             int amount;
             if (ValidateAndMapArguments(args, out filePath, out amount))
             {
+                int lengthOfLoan = 36;
                 var container = new WindsorContainer();
                 container.Install(new CoreInstaller());
 
@@ -25,7 +23,7 @@ namespace LoanCalculator.Cli
                 var loanCalculator = container.Resolve<IQuoteCalculatorService>();
 
                 var lenders = await lenderFactory.CreateLendersFromCsvFileAsync(filePath);
-                var loanResult = loanCalculator.CalculateQuote(amount, 36, lenders);
+                var loanResult = loanCalculator.CalculateQuote(amount, lengthOfLoan, lenders);
 
                 Outputresult(loanResult, amount);
             }
