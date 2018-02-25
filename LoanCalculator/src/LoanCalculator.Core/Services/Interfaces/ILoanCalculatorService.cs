@@ -9,6 +9,8 @@ namespace LoanCalculator.Core.Services.Interfaces
 {
     public interface ILoanCalculatorService
     {
-        CalculateLoanResponse CalculateLoan(double amount, int LoanPeriodMonths, IList<Lender> lenders);
+        CalculateLoanResponse CalculateLoan(double amount, int loanPeriodMonths, IList<Lender> lenders);
+
+        double CalculateMonthlyrepayment(double principal, int loanPeriodMonths, double interestRate);
     }
 }

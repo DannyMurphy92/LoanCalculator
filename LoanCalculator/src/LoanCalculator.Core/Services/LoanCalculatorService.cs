@@ -16,7 +16,11 @@ namespace LoanCalculator.Core.Services
             var lender = GetLowestRateLender(amount, lenders);
             if (lender != null)
             {
-                return new CalculateLoanResponse();
+                return new CalculateLoanResponse
+                {
+                    LenderAvailable = true,
+                    Lender = lender
+                };
             }
 
             return new CalculateLoanResponse
@@ -31,6 +35,18 @@ namespace LoanCalculator.Core.Services
                 .Where(l => l.Available >= amount)
                 .OrderBy(l => l.Rate)
                 .FirstOrDefault();
+        }
+
+        //Based off http://www.financeformulas.net/Loan_Payment_Formula.html
+        public double CalculateMonthlyrepayment(double principal, int loanPeriodMonths, double interestRate)
+        {
+            var monthlyRate = Math.Pow((1 + interestRate), (1d/12d)) - 1;
+
+            var upperFraction = principal * monthlyRate;
+
+            var lowerFraction = (1 - Math.Pow((1 + monthlyRate), -loanPeriodMonths));
+
+            return upperFraction / lowerFraction;
         }
     }
 }

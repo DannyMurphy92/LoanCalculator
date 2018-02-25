@@ -26,8 +26,63 @@ namespace LoanCalculator.Core.UnitTests.Services
         public void CalculateLoan_WhenAmountNotAvailable_ReturnErrorResponse()
         {
             // Arrange
-            var amount = 1000d;
-            var lenders = new List<Lender>
+            var amount = 1000;
+            var lenders = CreateLenders();
+
+            var subject = fixture.Create<LoanCalculatorService>();
+
+            // Act
+            var result = subject.CalculateLoan(amount, fixture.Create<int>(), lenders);
+
+            // Assert
+            Assert.IsFalse(result.LenderAvailable);
+        }
+
+
+        [Test]
+        public void CalculateLoan_WhenLendersAreAvailable_SelectsTheLenderWithTheLowestRate()
+        {
+            // Arrange
+            var amount = 10;
+            var lenders = CreateLenders();
+            var bestValLender = new Lender
+            {
+                Rate = 0.0000001,
+                Available = 100000,
+                Name = fixture.Create<string>()
+            };
+            lenders.Add(bestValLender);
+
+            var subject = fixture.Create<LoanCalculatorService>();
+
+            // Act
+            var result = subject.CalculateLoan(amount, fixture.Create<int>(), lenders);
+
+            // Assert
+            Assert.IsTrue(result.LenderAvailable);
+            Assert.AreEqual(bestValLender, result.Lender);
+        }
+
+        [Test]
+        public void CalculateMonthlyRepayment_WhenInvoked_CorrectlyCalculatesRepaymentAmount()
+        {
+            // Arrange
+            double rate = 0.07;
+            double principal = 1000;
+            int months = 36;
+            var expected = 30.78;
+
+            var subject = fixture.Create<LoanCalculatorService>();
+
+            // Act
+            var result = subject.CalculateMonthlyrepayment(principal, months, rate);
+
+            // Assert
+            Assert.AreEqual(expected, Math.Round(result, 2));
+        }
+        private IList<Lender> CreateLenders()
+        {
+            return new List<Lender>
             {
                 new Lender
                 {
@@ -48,14 +103,6 @@ namespace LoanCalculator.Core.UnitTests.Services
                     Available = 300
                 }
             };
-
-            var subject = fixture.Create<LoanCalculatorService>();
-
-            // Act
-            var result = subject.CalculateLoan(amount, fixture.Create<int>(), lenders);
-
-            // Assert
-            Assert.AreEqual(false, result.LenderAvailable);
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LoanCalculator.Core.Models
+﻿namespace LoanCalculator.Core.Models
 {
     public class CalculateLoanResponse
     {
@@ -13,7 +7,5 @@ namespace LoanCalculator.Core.Models
         public Lender Lender { get; set; }
 
         public double MonthlyRepayment { get; set; }
-
-        public double TotalRepayment { get; set; }
     }
 }
