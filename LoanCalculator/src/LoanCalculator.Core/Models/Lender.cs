@@ -12,6 +12,6 @@ namespace LoanCalculator.Core.Models
 
         public double Rate { get; set; }
 
-        public double  Available { get; set; }
+        public double Available { get; set; }
     }
 }

@@ -28,7 +28,18 @@ namespace LoanCalculator.Cli
                 var loanCalculator = container.Resolve<ILoanCalculatorService>();
                 var loanResult = loanCalculator.CalculateLoan(amount, 36, lenders);
 
-                lenderFactory.CreateLendersFromCsvFileAsync(filePath);
+                if (loanResult.LenderAvailable)
+                {
+                    var lender = loanResult.Lender;
+                    Console.WriteLine($"Requested amount £{amount}");
+                    Console.WriteLine($"Rate {Math.Round((lender.Rate * 100), 1)}%");
+                    Console.WriteLine($"Monthly repayment: £{Math.Round(loanResult.MonthlyRepayment, 2)}");
+                    Console.WriteLine($"Total repayment: £{Math.Round(loanResult.MonthlyRepayment * 36, 2)}");
+                }
+                else
+                {
+                    Console.WriteLine($"A quote for £{amount} cannot be provider at this time.");
+                }
             }
             else
             {
@@ -43,7 +54,6 @@ namespace LoanCalculator.Cli
             if (args.Length >= 2)
             {
                 fileName = args[0];
-                amount = 0;
                 var validNum = int.TryParse(args[1], out amount);
 
                 if (fileName.ToLower().EndsWith(".csv") && validNum && (amount % 100 == 0))
@@ -53,5 +63,6 @@ namespace LoanCalculator.Cli
             }
             return false;
         }
+        
     }
 }
