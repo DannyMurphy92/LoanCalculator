@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace LoanCalculator.Cli
     {
         public static void Main(string[] args)
         {
-            new CoreClient().Run(args);
+            new CoreClient().Run(args).Wait();
             
             Console.ReadLine();
         }

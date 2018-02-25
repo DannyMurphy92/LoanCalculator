@@ -14,7 +14,7 @@ using Moq;
 namespace LoanCalculator.Core.UnitTests.Services
 {
     [TestFixture]
-    public class FileReaderTestFixture
+    public class LenderFactoryTestFixture
     {
         private IFixture fixture;
 
@@ -35,16 +35,16 @@ namespace LoanCalculator.Core.UnitTests.Services
         }
 
         [Test]
-        public void ReadCsv_WhenInvoked_ShouldCheckFileExists()
+        public async Task CreateLendersFromCsvFile_WhenInvoked_ShouldCheckFileExists()
         {
             // Arrange
             var filePath = fixture.Create<string>();
             fileSystemMock.Setup(f => f.File.Exists(filePath))
                 .Returns(true);
-            var subject = fixture.Create<FileReader>();
+            var subject = fixture.Create<LenderFactory>();
 
             // Act
-            subject.ReadCsvAsync(filePath);
+            await subject.CreateLendersFromCsvFileAsync(filePath);
 
             // Assert
             fileSystemMock.Verify(f => f.File.Exists(filePath), Times.Once);
@@ -52,16 +52,16 @@ namespace LoanCalculator.Core.UnitTests.Services
 
 
         [Test]
-        public void ReadCsv_IfFileDoesntExist_ThrowsException()
+        public void CreateLendersFromCsvFile_IfFileDoesntExist_ThrowsException()
         {
             // Arrange
             var filePath = fixture.Create<string>();
             fileSystemMock.Setup(f => f.File.Exists(filePath))
                 .Returns(false);
-            var subject = fixture.Create<FileReader>();
+            var subject = fixture.Create<LenderFactory>();
 
             // Act
-            TestDelegate act = () => subject.ReadCsvAsync(filePath);
+            AsyncTestDelegate act = () => subject.CreateLendersFromCsvFileAsync(filePath);
 
             // Assert
             Assert.That(act, Throws.TypeOf<FileNotFoundException>());

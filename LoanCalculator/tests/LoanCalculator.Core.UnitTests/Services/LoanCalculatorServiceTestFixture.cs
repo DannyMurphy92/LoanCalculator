@@ -80,6 +80,7 @@ namespace LoanCalculator.Core.UnitTests.Services
             // Assert
             Assert.AreEqual(expected, Math.Round(result, 2));
         }
+
         private IList<Lender> CreateLenders()
         {
             return new List<Lender>

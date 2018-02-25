@@ -11,7 +11,7 @@ namespace LoanCalculator.Cli
 {
     public class CoreClient
     {
-        public void Run(string[] args)
+        public async Task Run(string[] args)
         {
             string filePath;
             int amount;
@@ -21,9 +21,14 @@ namespace LoanCalculator.Cli
                 var container = new WindsorContainer();
                 container.Install(new CoreInstaller());
 
-                var fileReader = container.Resolve<IFileReader>();
+                var lenderFactory = container.Resolve<ILenderFactory>();
 
-                fileReader.ReadCsvAsync(filePath);
+                var lenders = await lenderFactory.CreateLendersFromCsvFileAsync(filePath);
+
+                var loanCalculator = container.Resolve<ILoanCalculatorService>();
+                var loanResult = loanCalculator.CalculateLoan(amount, 36, lenders);
+
+                lenderFactory.CreateLendersFromCsvFileAsync(filePath);
             }
             else
             {

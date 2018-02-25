@@ -20,8 +20,8 @@ namespace LoanCalculator.Core.Installer
                 Component.For<IFileSystem>()
                     .ImplementedBy<FileSystem>());
             container.Register(
-                Component.For<IFileReader>()
-                    .ImplementedBy<FileReader>());
+                Component.For<ILenderFactory>()
+                    .ImplementedBy<LenderFactory>());
         }
     }
 }
