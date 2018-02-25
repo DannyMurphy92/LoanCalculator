@@ -1,10 +1,10 @@
 ﻿namespace LoanCalculator.Core.Models
 {
-    public class CalculateLoanResponse
+    public class CalculateQuoteResponse
     {
         public bool LenderAvailable { get; set; }
 
-        public Lender Lender { get; set; }
+        public double Rate { get; set; }
 
         public double MonthlyRepayment { get; set; }
     }

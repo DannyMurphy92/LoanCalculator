@@ -7,9 +7,9 @@ using LoanCalculator.Core.Models;
 
 namespace LoanCalculator.Core.Services.Interfaces
 {
-    public interface ILoanCalculatorService
+    public interface IQuoteCalculatorService
     {
-        CalculateLoanResponse CalculateLoan(double amount, int loanPeriodMonths, IList<Lender> lenders);
+        CalculateQuoteResponse CalculateQuote(double amount, int loanPeriodMonths, IList<Lender> lenders);
 
         double CalculateMonthlyrepayment(double principal, int loanPeriodMonths, double interestRate);
     }

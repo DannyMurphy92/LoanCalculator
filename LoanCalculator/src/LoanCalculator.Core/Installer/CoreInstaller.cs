@@ -23,8 +23,8 @@ namespace LoanCalculator.Core.Installer
                 Component.For<ILenderFactory>()
                     .ImplementedBy<LenderFactory>());
             container.Register(
-                Component.For<ILoanCalculatorService>()
-                    .ImplementedBy<LoanCalculatorService>());
+                Component.For<IQuoteCalculatorService>()
+                    .ImplementedBy<QuoteCalculatorService>());
         }
     }
 }

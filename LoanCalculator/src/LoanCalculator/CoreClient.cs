@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Castle.Windsor;
 using LoanCalculator.Core.Installer;
+using LoanCalculator.Core.Models;
 using LoanCalculator.Core.Services.Interfaces;
 
 namespace LoanCalculator.Cli
@@ -17,33 +18,35 @@ namespace LoanCalculator.Cli
             int amount;
             if (ValidateAndMapArguments(args, out filePath, out amount))
             {
-
                 var container = new WindsorContainer();
                 container.Install(new CoreInstaller());
 
                 var lenderFactory = container.Resolve<ILenderFactory>();
+                var loanCalculator = container.Resolve<IQuoteCalculatorService>();
 
                 var lenders = await lenderFactory.CreateLendersFromCsvFileAsync(filePath);
+                var loanResult = loanCalculator.CalculateQuote(amount, 36, lenders);
 
-                var loanCalculator = container.Resolve<ILoanCalculatorService>();
-                var loanResult = loanCalculator.CalculateLoan(amount, 36, lenders);
-
-                if (loanResult.LenderAvailable)
-                {
-                    var lender = loanResult.Lender;
-                    Console.WriteLine($"Requested amount £{amount}");
-                    Console.WriteLine($"Rate {Math.Round((lender.Rate * 100), 1)}%");
-                    Console.WriteLine($"Monthly repayment: £{Math.Round(loanResult.MonthlyRepayment, 2)}");
-                    Console.WriteLine($"Total repayment: £{Math.Round(loanResult.MonthlyRepayment * 36, 2)}");
-                }
-                else
-                {
-                    Console.WriteLine($"A quote for £{amount} cannot be provider at this time.");
-                }
+                Outputresult(loanResult, amount);
             }
             else
             {
                 Console.WriteLine("Incorrect usage, to run: LoanCalculator.Cli.exe <path to csv market file> <amount that is multiple of 100>");
+            }
+        }
+
+        private void Outputresult(CalculateQuoteResponse quoteResult, int amount)
+        {
+            if (quoteResult.LenderAvailable)
+            {
+                Console.WriteLine($"Requested amount £{amount}");
+                Console.WriteLine($"Rate {Math.Round((quoteResult.Rate * 100), 1)}%");
+                Console.WriteLine($"Monthly repayment: £{Math.Round(quoteResult.MonthlyRepayment, 2)}");
+                Console.WriteLine($"Total repayment: £{Math.Round(quoteResult.MonthlyRepayment * 36, 2)}");
+            }
+            else
+            {
+                Console.WriteLine($"A quote for £{amount} cannot be provider at this time.");
             }
         }
 

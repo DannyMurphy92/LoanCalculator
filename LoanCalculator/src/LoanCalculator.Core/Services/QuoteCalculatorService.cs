@@ -9,23 +9,23 @@ using LoanCalculator.Core.Services.Interfaces;
 
 namespace LoanCalculator.Core.Services
 {
-    public class LoanCalculatorService : ILoanCalculatorService
+    public class QuoteCalculatorService : IQuoteCalculatorService
     {
-        public CalculateLoanResponse CalculateLoan(double amount, int loanPeriodMonths, IList<Lender> lenders)
+        public CalculateQuoteResponse CalculateQuote(double amount, int loanPeriodMonths, IList<Lender> lenders)
         {
             var lender = GetLowestRateLender(amount, lenders);
 
             if (lender != null)
             {
-                return new CalculateLoanResponse
+                return new CalculateQuoteResponse
                 {
                     LenderAvailable = true,
-                    Lender = lender,
+                    Rate = lender.Rate,
                     MonthlyRepayment = CalculateMonthlyrepayment(amount, loanPeriodMonths, lender.Rate)
                 };
             }
 
-            return new CalculateLoanResponse
+            return new CalculateQuoteResponse
             {
                 LenderAvailable = false
             };

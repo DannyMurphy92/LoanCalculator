@@ -11,7 +11,7 @@ using NUnit.Framework;
 
 namespace LoanCalculator.Core.UnitTests.Services
 {
-    public class LoanCalculatorServiceTestFixture
+    public class QuoteCalculatorServiceTestFixture
     {
         private IFixture fixture;
 
@@ -23,16 +23,16 @@ namespace LoanCalculator.Core.UnitTests.Services
 
 
         [Test]
-        public void CalculateLoan_WhenAmountNotAvailable_ReturnErrorResponse()
+        public void CalculateQuote_WhenAmountNotAvailable_ReturnErrorResponse()
         {
             // Arrange
             var amount = 1000;
             var lenders = CreateLenders();
 
-            var subject = fixture.Create<LoanCalculatorService>();
+            var subject = fixture.Create<QuoteCalculatorService>();
 
             // Act
-            var result = subject.CalculateLoan(amount, fixture.Create<int>(), lenders);
+            var result = subject.CalculateQuote(amount, fixture.Create<int>(), lenders);
 
             // Assert
             Assert.IsFalse(result.LenderAvailable);
@@ -40,7 +40,7 @@ namespace LoanCalculator.Core.UnitTests.Services
 
 
         [Test]
-        public void CalculateLoan_WhenLendersAreAvailable_SelectsTheLenderWithTheLowestRate()
+        public void CalculateQuote_WhenLendersAreAvailable_SelectsTheLenderWithTheLowestRate()
         {
             // Arrange
             var amount = 10;
@@ -53,14 +53,14 @@ namespace LoanCalculator.Core.UnitTests.Services
             };
             lenders.Add(bestValLender);
 
-            var subject = fixture.Create<LoanCalculatorService>();
+            var subject = fixture.Create<QuoteCalculatorService>();
 
             // Act
-            var result = subject.CalculateLoan(amount, fixture.Create<int>(), lenders);
+            var result = subject.CalculateQuote(amount, fixture.Create<int>(), lenders);
 
             // Assert
             Assert.IsTrue(result.LenderAvailable);
-            Assert.AreEqual(bestValLender, result.Lender);
+            Assert.AreEqual(bestValLender.Rate, result.Rate);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace LoanCalculator.Core.UnitTests.Services
             int months = 36;
             var expected = 30.78;
 
-            var subject = fixture.Create<LoanCalculatorService>();
+            var subject = fixture.Create<QuoteCalculatorService>();
 
             // Act
             var result = subject.CalculateMonthlyrepayment(principal, months, rate);
