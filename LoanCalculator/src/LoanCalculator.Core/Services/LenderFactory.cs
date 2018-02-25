@@ -27,7 +27,7 @@ namespace LoanCalculator.Core.Services
                 throw new FileNotFoundException();
             }
 
-            using (var reader = new StreamReader(filePath))
+            using (var reader = new StreamReader(fileSystem.File.OpenRead(filePath)))
             {
                 var result = new List<Lender>();
                 string currentLine;
@@ -44,7 +44,7 @@ namespace LoanCalculator.Core.Services
 
                         if (valid)
                         {
-                            result.Add( new Lender
+                            result.Add(new Lender
                             {
                                 Available = available,
                                 Rate = rate,
