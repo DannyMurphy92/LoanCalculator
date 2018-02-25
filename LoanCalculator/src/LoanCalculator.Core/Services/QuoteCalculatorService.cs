@@ -31,7 +31,7 @@ namespace LoanCalculator.Core.Services
             };
         }
 
-        //Based off http://www.financeformulas.net/Loan_Payment_Formula.html
+
         public double CalculateMonthlyrepayment(double principal, int loanPeriodMonths, double interestRate)
         {
             var monthlyRate = Math.Pow((1 + interestRate), (1d / 12d)) - 1;
