@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4DB48438-BA9B-42BE-935B-1F85EF788D1E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3F51841F-0550-4044-86CC-2D38295F1B14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCalculator.Cli", "src\LoanCalculator\LoanCalculator.Cli.csproj", "{4D38FB4D-EE0D-43B8-94B8-34B156142E36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCalculator.Core", "src\LoanCalculator.Core\LoanCalculator.Core.csproj", "{60A9D594-FF3E-4CBB-8B84-514E224C7E75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanCalculator.Core.UnitTests", "tests\LoanCalculator.Core.UnitTests\LoanCalculator.Core.UnitTests.csproj", "{0D2C788A-C2C9-4C16-A441-B0AD11B79A0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB5DD02A-4471-482A-8968-68905352BFA0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Market Data for Exercise.csv = src\Market Data for Exercise.csv
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D38FB4D-EE0D-43B8-94B8-34B156142E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D38FB4D-EE0D-43B8-94B8-34B156142E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D38FB4D-EE0D-43B8-94B8-34B156142E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D38FB4D-EE0D-43B8-94B8-34B156142E36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A9D594-FF3E-4CBB-8B84-514E224C7E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A9D594-FF3E-4CBB-8B84-514E224C7E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A9D594-FF3E-4CBB-8B84-514E224C7E75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A9D594-FF3E-4CBB-8B84-514E224C7E75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D2C788A-C2C9-4C16-A441-B0AD11B79A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D2C788A-C2C9-4C16-A441-B0AD11B79A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D2C788A-C2C9-4C16-A441-B0AD11B79A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D2C788A-C2C9-4C16-A441-B0AD11B79A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4D38FB4D-EE0D-43B8-94B8-34B156142E36} = {4DB48438-BA9B-42BE-935B-1F85EF788D1E}
+		{60A9D594-FF3E-4CBB-8B84-514E224C7E75} = {4DB48438-BA9B-42BE-935B-1F85EF788D1E}
+		{0D2C788A-C2C9-4C16-A441-B0AD11B79A0C} = {3F51841F-0550-4044-86CC-2D38295F1B14}
+	EndGlobalSection
+EndGlobal
