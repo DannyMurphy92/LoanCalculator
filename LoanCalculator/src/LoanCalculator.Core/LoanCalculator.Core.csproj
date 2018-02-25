@@ -57,9 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Installer\CoreInstaller.cs" />
+    <Compile Include="Models\CalculateLoanResponse.cs" />
+    <Compile Include="Models\Lender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileReader.cs" />
     <Compile Include="Services\Interfaces\IFileReader.cs" />
+    <Compile Include="Services\Interfaces\ILoanCalculatorService.cs" />
+    <Compile Include="Services\LoanCalculatorService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
