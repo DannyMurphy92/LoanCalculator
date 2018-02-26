@@ -56,8 +56,12 @@ namespace LoanCalculator.Cli
             {
                 fileName = args[0];
                 var validNum = int.TryParse(args[1], out amount);
+                validNum &= amount >= 100;
+                validNum &= amount <= 1500;
 
-                if (fileName.ToLower().EndsWith(".csv") && validNum && (amount % 100 == 0))
+                if (fileName.ToLower().EndsWith(".csv") && 
+                    validNum && 
+                    (amount % 100 == 0))
                 {
                     return true;
                 }
